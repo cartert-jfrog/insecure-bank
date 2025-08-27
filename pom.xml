@@ -240,3 +240,11 @@
 		</profile>
 	</profiles>
 </project>
+
+<distributionManagement>
+    <snapshotRepository>
+        <id>snapshots</id>
+        <name>cartert-insecurebank-libs-snapshot-snapshots</name>
+        <url>https://cartert.jfrog.io/artifactory/insecurebank-libs-snapshot</url>
+    </snapshotRepository>
+</distributionManagement>
