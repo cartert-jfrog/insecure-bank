@@ -27,7 +27,7 @@ jobs:
         branch: ["master"]
     steps:
       - uses: jfrog/frogbot@v2
-          with:
+        with:
             oidc-provider-name: setup-frogbot-insecurebank
             oidc-audience: jfrog-github
         env:
