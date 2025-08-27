@@ -39,7 +39,7 @@ jobs:
       - name: Build with JFrog and Maven
         run: |
           jf mvn-config
-          jf rt mvn package -DskipTests
+          jf rt mvn package deploy -DskipTests
 
       # Use the JFrog "jf" command to collect information from 
       # the build and publish to Artifactory
