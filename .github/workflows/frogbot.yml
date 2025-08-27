@@ -12,11 +12,11 @@ on:
   workflow_dispatch: # The repository will be scanned on demand
 
 permissions:
-  pull-requests: write
-  contents: write
-  security-events: write
-  # [Mandatory If using OIDC authentication protocol instead of JF_ACCESS_TOKEN]
-  # id-token: write
+  actions: read           # for detecting the Github Actions environment
+  id-token: write         # for creating OIDC tokens for signing
+  contents: write         # for creating fixing pull requests and pushing changes
+  pull-requests: write    # for creating pull requests to fix vulnerabilities
+  security-events: write  # for uploading SARIF results to GitHub Code Scanning
 
 jobs:
   frogbot-scan:
@@ -27,14 +27,12 @@ jobs:
         branch: ["master"]
     steps:
       - uses: jfrog/frogbot@v2
-        # [Mandatory if using OIDC authentication protocol instead of JF_ACCESS_TOKEN]
-        # Insert to oidc-provider-name the 'Provider Name' defined in the OIDC integration configured in the JPD
-        # with:
-        #   oidc-provider-name: ""
+          with:
+            oidc-provider-name: setup-frogbot-insecurebank
+            oidc-audience: jfrog-github
         env:
           JF_URL: ${{ vars.JF_URL }}
-          JF_USER: ${{ secrets.JF_USER }}
-          JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
-          #JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
           JF_GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JF_PROJECT: ${{ vars.JF_PROJECT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JF_GIT_BASE_BRANCH: ${{ matrix.branch }}    # For repository scan action
