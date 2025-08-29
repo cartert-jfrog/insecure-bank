@@ -34,6 +34,12 @@ jobs:
           JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
           JF_PROJECT: "insecurebank"
           JF_GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Add jf audit
+      #
+      - name: Jfrog Audit
+        run: |
+          jf audit
   
       # Build the maven project and skip tests
       - name: Build with JFrog and Maven
