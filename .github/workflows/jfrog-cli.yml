@@ -1,8 +1,14 @@
 # Insecure Bank CI
 #
 name: "Insecure Bank CI"
-on: push
-
+on:
+  workflow_dispatch: # The repository will be scanned on demand
+  push:
+    branches:
+      - main
+      - develop
+      - 'release/*'
+      
 permissions:
   id-token: write
   contents: read
